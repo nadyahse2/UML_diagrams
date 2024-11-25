@@ -1,0 +1,80 @@
+@startuml
+class Client {
+    - clientId: int
+    - firstName: String
+    - middleName: String
+    - lastName: String
+    - birthDate: Date
+    - phoneNumber: String
+    - email: String
+    - passwordHash: String
+    + openAccount(accountType: String): Account 
+    + closeAccount(accountId: int): boolean
+    + requestLoan(amount: double): Loan
+}
+class Transaction {
+    - transactionId: int
+    - accountId: int
+    - transactionType: String
+    - amount: double
+    - transactionDate: Date
+}
+
+abstract class Account {
+    - accountId: int
+    - clientId: int
+    - openingDate: Date
+    - balance: double
+    - accountType: String
+    + deposit(amount: double): boolean
+    + withdraw(amount: double): boolean
+    + transfer(amount: double, toAccount: Account): boolean
+    + getBalance(): double
+}
+
+class DebitAccount extends Account {
+    - overdraftLimit: double
+}
+
+class SavingsAccount extends Account {
+    - interestRate: double
+}
+
+class LoanAccount extends Account {
+    - loanId: int
+    + makePayment(amount: double): boolean
+    + payOff(amount: double) boolean
+
+}
+
+class Loan {
+    - loanId: int
+    - accountId: int  
+    - loanStartDate: Date
+    - loanEndDate: Date
+    - monthlypayment: double 
+    - interestRate: double
+    - loanStatus: String //e.g., "active", "paid off", "default"
+    
+}
+
+
+
+
+
+class Card {
+    - cardId: int
+    - accountId: int
+    - cardNumber: String
+    - cardType: String
+    - expiryDate: Date
+    - cvv: String
+    + isExpired(): boolean
+}
+
+
+Client "1" -- "*" Account
+Account "1" *-- "*" Transaction
+Account "1" *-- "*" Card
+LoanAccount "1" *-- "1" Loan
+@enduml
