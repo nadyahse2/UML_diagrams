@@ -1,0 +1,33 @@
+@startuml
+actor Client
+participant "UI" as UI
+participant "RegistrationService" as RS
+participant "Database" as DB
+
+
+Client -> UI: Provide registration data (name, email, password, etc.)
+activate UI
+UI -> RS: Submit Registration Request
+activate RS
+RS -> UI: Validate Data (e.g., email format, password strength)
+activate UI
+UI --> RS: Validation Result (success/failure, error messages)
+deactivate UI
+alt Validation Successful
+   
+        RS -> DB: Save client data
+        activate DB
+        DB --> RS: Data saved
+        deactivate DB
+        RS -> UI: Registration successful
+        UI --> Client: Confirmation message
+        deactivate RS
+        deactivate UI
+else Validation Failed
+    RS -> UI: Display error messages
+    UI --> Client: Error messages
+    deactivate RS
+    deactivate UI
+end
+
+@enduml
