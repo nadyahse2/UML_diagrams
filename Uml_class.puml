@@ -8,6 +8,7 @@ class Client {
     - phoneNumber: String
     - email: String
     - passwordHash: String
+    + registration(name: String,birthdate: String, email: String, password:String, phonenumber: String): boolean
     + openAccount(accountType: String): Account 
     + closeAccount(accountId: int): boolean
     + requestLoan(amount: double): Loan
