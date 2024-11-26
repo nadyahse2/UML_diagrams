@@ -8,6 +8,8 @@ class Client {
     - phoneNumber: String
     - email: String
     - passwordHash: String
+    + chekingbalance(accountId: int): balance
+    + gethistoryTransaction(accountId: int): Transaction
     + registration(name: String,birthdate: String, email: String, password:String, phonenumber: String): boolean
     + openAccount(accountType: String): Account 
     + closeAccount(accountId: int): boolean
