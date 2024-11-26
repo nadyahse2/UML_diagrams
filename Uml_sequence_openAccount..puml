@@ -1,0 +1,43 @@
+@startuml
+actor Client
+participant "UI" as UI
+participant "AccountManager" as AM
+participant "AccountFactory" as AF
+participant "Account" as Acc
+participant "Database" as DB
+
+Client -> UI: Request to open new account (accountType)
+activate UI
+UI -> AM: Create Account Request (client data, accountType)
+activate AM
+AM -> AF: Create Account (accountType, client data)
+activate AF
+AF -> DB: Check Client Exists
+activate DB
+DB --> AF: Client Exists?
+deactivate DB
+alt Client Exists
+    AF -> DB: Get Client ID
+    activate DB
+    DB --> AF: Client ID
+    deactivate DB
+    AF -> Acc: Create Account object (accountType, client ID)
+    activate Acc
+    Acc --> AF: Account Created
+    deactivate Acc
+else Client Does Not Exist
+    AF -> UI: Client Registration Needed
+    UI --> Client: Register First
+end
+AM -> DB: Save Account data
+activate DB
+DB --> AM: Account Saved
+deactivate DB
+AM -> UI: Account Created Successfully (accountId)
+deactivate AM
+UI --> Client: Confirmation
+deactivate UI
+
+deactivate AF
+deactivate AM
+@enduml
