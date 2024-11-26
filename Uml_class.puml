@@ -79,5 +79,5 @@ class Card {
 Client "1" -- "*" Account
 Account "1" *-- "*" Transaction
 Account "1" *-- "*" Card
-LoanAccount "1" *-- "1" Loan
+LoanAccount "1" *-- "*" Loan
 @enduml
