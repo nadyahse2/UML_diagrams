@@ -1,0 +1,50 @@
+@startuml
+left to right direction
+
+actor Client
+actor BankSystem
+
+rectangle {
+    usecase "Registration" as uc1
+    usecase "Open Account" as uc2
+    usecase "Close Account" as uc3
+    usecase "Withdraw" as uc6
+    usecase "Get card" as uc7 
+    usecase "Cheking balance" as uc12
+    usecase "Deposit" as uc4
+    usecase "Transfer" as uc5
+   
+    usecase "Payment loan" as uc11
+}
+rectangle {
+    usecase "Approve loan" as uc8
+    usecase "Request loan" as uc9
+    usecase "Opening loan" as uc10
+    usecase "Closing loan" as uc13
+    usecase "Cheking Status" as uc14
+
+    
+    
+}
+uc7 .> uc2 : <<include>>
+uc8 .> uc10 : <<include>>
+uc9 .> uc10 : <<include>>
+uc11 .> uc4 : extend
+uc14 .> uc13 : <<include>>
+Client -- uc1
+Client -- uc2
+Client -- uc3 
+Client -- uc4
+Client -- uc5
+Client -- uc6
+Client -- uc9
+Client -- uc11
+Client -- uc12
+BankSystem -- uc13
+BankSystem -- uc8
+
+
+
+
+
+@enduml
